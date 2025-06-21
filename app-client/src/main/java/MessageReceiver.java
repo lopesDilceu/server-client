@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import serverclient.common.Cryptography;
 
 public class MessageReceiver implements Runnable {
     private Socket socket;
@@ -19,7 +20,7 @@ public class MessageReceiver implements Runnable {
             // Loop para ficar ouvindo o servidor
             while ((mensagemDoServidor = leitorServidor.readLine()) != null) {
                 // Descriptografa a mensagem recebida
-                String mensagemOriginal = Criptografia.descriptografar(mensagemDoServidor);
+                String mensagemOriginal = Cryptography.descriptografar(mensagemDoServidor);
                 System.out.println("Recebido: " + mensagemOriginal);
             }
         } catch (Exception e) {

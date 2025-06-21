@@ -1,13 +1,14 @@
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
+import serverclient.common.Cryptography;
 
 public class Client {
     public static void main(String[] args) {
-        final String HOST = "127.0.0.1"; // IP do servidor do seu amigo (use "localhost" se estiver na mesma máquina)
-        final int PORTA = 13000;         // Porta que seu amigo definiu no servidor
+        final String HOST = "127.0.0.1"; // IP do servidor
+        final int PORTA = 13000;         // Porta definida no servidor
 
-        try (]]
+        try (
                 // 1. Estabelecer conexão com o servidor
                 Socket socket = new Socket(HOST, PORTA);
                 // Objeto para enviar mensagens para o servidor
@@ -16,9 +17,8 @@ public class Client {
                 Scanner leitorConsole = new Scanner(System.in)
         ) {
             System.out.println("Conectado ao servidor de chat!");
-]
+
             // 2. Iniciar uma thread para receber mensagens do servidor
-            // Isso permite receber mensagens enquanto o usuário digita
             MessageReceiver recebedor = new MessageReceiver(socket);
             new Thread(recebedor).start();
 
@@ -32,13 +32,14 @@ public class Client {
                 }
 
                 // Criptografa a mensagem antes de enviar
-                String mensagemCriptografada = Criptografia.criptografar(mensagem);
+                String mensagemCriptografada = Cryptography.criptografar(mensagem);
                 escritor.println(mensagemCriptografada);
             }
 
         } catch (Exception e) {
             System.out.println("Erro no cliente: " + e.getMessage());
         }
+
         System.out.println("Desconectado.");
     }
 }
