@@ -27,23 +27,13 @@ public class ClientHandler implements Runnable {
             // Prepara para enviar mensagens para o cliente
             this.escritor = new PrintWriter(clientSocket.getOutputStream(), true);
 
-//            String mensagemCriptografada;
             String mensagemRecebidaComPrefixo;
             while ((mensagemRecebidaComPrefixo = leitor.readLine()) != null) {
-//                // Descriptografa a mensagem recebida
-//                String mensagemOriginal = Cryptography.descriptografar(mensagemCriptografada);
-//
-//                // Mostra a mensagem no log do servidor
-//                final String logMessage = "Recebido de " + clientSocket.getInetAddress().getHostAddress() + ": " + mensagemCriptografada + "\n";
-//                SwingUtilities.invokeLater(() -> logArea.append(logMessage));
-//
-//                // Reenvia a mensagem para todos os outros clientes
-//                server.broadcastMessage(mensagemOriginal, this);
                 String logMessage;
                 String mensagemOriginal;
 
                 if (mensagemRecebidaComPrefixo.startsWith("CRYPTO:")) {
-                    mensagemOriginal = Cryptography.criptografar(mensagemRecebidaComPrefixo.substring(7));
+                    mensagemOriginal = Cryptography.descriptografar(mensagemRecebidaComPrefixo.substring(7));
                     logMessage = "Recebido (Cripto) de " + clientSocket.getInetAddress().getHostAddress() + ": " + mensagemOriginal + "\n";
                 } else if (mensagemRecebidaComPrefixo.startsWith("PLAIN:")) {
                     mensagemOriginal = mensagemRecebidaComPrefixo.substring(6);
@@ -76,8 +66,6 @@ public class ClientHandler implements Runnable {
 
     // Método para o servidor usar para enviar uma mensagem para ESTE cliente
     public void sendMessage(String message) {
-        // Criptografa antes de enviar
-//        String mensagemCriptografada = Cryptography.criptografar(message);
         escritor.println(message);
     }
 }

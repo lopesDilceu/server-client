@@ -53,11 +53,11 @@ public class Server implements Runnable {
 
     // Método para enviar uma mensagem a todos os clientes
     public void broadcastMessage(String message, ClientHandler sender) {
-        String fullMessage = "Broadcast: " + message;
+//        String fullMessage = "Broadcast: " + message;
         for (ClientHandler client : clients) {
             // Envia para todos, exceto para quem mandou a mensagem original
             if (client != sender) {
-                client.sendMessage(fullMessage);
+                client.sendMessage(message);
             }
         }
     }
