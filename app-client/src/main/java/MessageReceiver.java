@@ -13,8 +13,8 @@ public class MessageReceiver implements Runnable {
     @Override
     public void run() {
         try (
-                // Objeto para ler as mensagens que o servidor envia
-                BufferedReader leitorServidor = new BufferedReader(new InputStreamReader(socket.getInputStream()))
+            // Lê as mensagens que o servidor envia
+            BufferedReader leitorServidor = new BufferedReader(new InputStreamReader(socket.getInputStream()))
         ) {
             String mensagemDoServidor;
             // Loop para ficar ouvindo o servidor

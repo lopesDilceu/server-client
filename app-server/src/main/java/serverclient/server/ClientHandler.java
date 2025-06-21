@@ -33,7 +33,7 @@ public class ClientHandler implements Runnable {
                 String mensagemOriginal = Cryptography.descriptografar(mensagemCriptografada);
 
                 // Mostra a mensagem no log do servidor
-                final String logMessage = "Recebido de " + clientSocket.getInetAddress().getHostAddress() + ": " + mensagemOriginal + "\n";
+                final String logMessage = "Recebido de " + clientSocket.getInetAddress().getHostAddress() + ": " + mensagemCriptografada + "\n";
                 SwingUtilities.invokeLater(() -> logArea.append(logMessage));
 
                 // Reenvia a mensagem para todos os outros clientes

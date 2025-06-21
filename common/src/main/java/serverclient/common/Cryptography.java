@@ -1,7 +1,6 @@
 package serverclient.common;
 
 public class Cryptography {
-    // A chave precisa ser a mesma no cliente e no servidor!
     private static final int CHAVE = 3;
 
     public static String criptografar(String texto) {

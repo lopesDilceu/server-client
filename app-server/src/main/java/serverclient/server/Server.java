@@ -13,7 +13,7 @@ public class Server implements Runnable {
 
     private final JTextArea logArea;
     private final JLabel statusLabel;
-    private static final int PORTA = 13000; // <- PORTA ATUALIZADA
+    private static final int PORTA = 13000;
     private List<ClientHandler> clients = new CopyOnWriteArrayList<>(); // Lista segura para threads
 
     public Server(JTextArea logArea, JLabel statusLabel) {
