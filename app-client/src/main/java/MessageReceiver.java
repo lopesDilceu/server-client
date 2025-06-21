@@ -19,9 +19,19 @@ public class MessageReceiver implements Runnable {
             String mensagemDoServidor;
             // Loop para ficar ouvindo o servidor
             while ((mensagemDoServidor = leitorServidor.readLine()) != null) {
-                // Descriptografa a mensagem recebida
-                String mensagemOriginal = Cryptography.descriptografar(mensagemDoServidor);
-                System.out.println("Recebido: " + mensagemOriginal);
+                String mensagemFinal;
+                if (mensagemDoServidor.startsWith("CRYPTO:")) {
+                    String dadosCriptografados = mensagemDoServidor.substring(7);
+                    String mensagemOriginal = Cryptography.descriptografar(dadosCriptografados);
+                    mensagemFinal = "[SECRETO] " + mensagemOriginal;
+                } else if (mensagemDoServidor.startsWith("PLAIN:")) {
+                    String mensagemPlana = mensagemDoServidor.substring(6);
+                    mensagemFinal = "[NORMAL] " + mensagemPlana;
+                } else {
+                    // Se o servidor enviar algo sem prefixo (ex: mensagens de status)
+                    mensagemFinal = "[SERVER] " + mensagemDoServidor;
+                }
+                System.out.println(mensagemFinal);
             }
         } catch (Exception e) {
             // Se o servidor cair ou a conexão for fechada, a exceção será capturada

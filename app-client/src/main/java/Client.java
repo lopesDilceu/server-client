@@ -23,7 +23,11 @@ public class Client {
             new Thread(recebedor).start();
 
             // Loop para enviar mensagens
-            System.out.println("Digite suas mensagens (ou 'sair' para desconectar):");
+            System.out.println("Digite suas mensagens.");
+            System.out.println("Padrão: Criptografado. Para enviar em texto plano, comece com '#n' (ex: #n ola mundo)");
+            System.out.println("Digite 'sair' para desconectar.");
+
+
             while (leitorConsole.hasNextLine()) {
                 String mensagem = leitorConsole.nextLine();
 
@@ -31,10 +35,16 @@ public class Client {
                     break;
                 }
 
-                // Criptografa a mensagem antes de enviar
-                String mensagemCriptografada = Cryptography.criptografar(mensagem);
-                escritor.println(mensagemCriptografada);
+                if (mensagem.startsWith("#n ")) {
+                    String mensagemPlana = mensagem.substring(3); // Remove o prefixo '#n'
+                    escritor.println("PLAIN:" + mensagemPlana);
+                } else {
+                    // Criptografa a mensagem antes de enviar
+                    String mensagemCriptografada = Cryptography.criptografar(mensagem);
+                    escritor.println("CRYPTO:" + mensagemCriptografada);
+                }
             }
+
 
         } catch (Exception e) {
             System.out.println("Erro no cliente: " + e.getMessage());
