@@ -21,7 +21,9 @@ public class ServerScreen {
             JFrame frame = new JFrame("Servidor");
             frame.setContentPane(new ServerScreen().panel1); // Define o painel da nossa tela como o conteúdo da janela
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fecha a aplicação ao clicar no X
-            frame.pack(); // Ajusta o tamanho da janela ao conteúdo
+//            frame.pack(); // Ajusta o tamanho da janela ao conteúdo
+            // Define um tamanho padrão (largura, altura) em pixels
+            frame.setSize(600, 400); //
             frame.setLocationRelativeTo(null); // Centraliza a janela na tela
             frame.setVisible(true); // Torna a janela visível
         });
